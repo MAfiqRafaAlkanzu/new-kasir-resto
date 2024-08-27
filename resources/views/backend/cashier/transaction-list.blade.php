@@ -56,6 +56,12 @@
             {{Session::get('success')}}
         </div>
     @endif
+    @if(Session::has('error'))
+        <div class="alert alert-danger alert-dismissable fade show text-center">
+            <button class="close" data-dismiss="alert" aria-label="Close"></button>
+            {{Session::get('error')}}
+        </div>
+    @endif
     <div class="ibox-body">
         <h1 class="font-strong mb-4">All Transactions</h1>
         <div class="flexbox mb-4">

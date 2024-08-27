@@ -41,7 +41,7 @@ class MenuController extends Controller
                                             return $menu->description;
                                         })
                                         ->editColumn('image', function($menu){
-                                            return '<img src="'.asset("image/".$menu->image).'" style="width:120px;height:120px;margin:0px !important"/>';
+                                            return '<img src="'.asset($menu->image).'" style="width:120px;height:120px;margin:0px !important"/>';
                                         })
                                         ->editColumn('price', function($menu){
                                             return $menu->price;

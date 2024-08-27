@@ -39,15 +39,18 @@ class CashierController extends Controller
                                         })
                                         ->editColumn('status', function($data){
                                             if ($data->status == 'unpayed') {
-                                                return '<span class="badge badge-danger badge-pill"> Unpayed </span>';
+                                                return '<span class="badge badge-danger badge-pill"> Unpaid </span>';
                                             }
                                             else{
-                                                return '<span class="badge badge-success badge-pill"> Payed </span>';
+                                                return '<span class="badge badge-success badge-pill"> Paid </span>';
                                             }
                                         })
                                         ->editColumn('action', function($data){
-                                            // return $total;
+                                           if ($data->status === "payed") {
+                                            return '<div class="input-group d-flex w-25"><div class="input-group-btn d-flex justify-items-center align-items-center"></div></div>';
+                                           } else {
                                             return '<div class="input-group d-flex w-25"><div class="input-group-btn d-flex justify-items-center align-items-center"><button class="btn btn-outline-primary btn-sm edit-data" data-id='.$data->id.' data-toggle="modal" data-target="#paymentmodal"><i class="ti-pencil"></i> Edit</button></div></div>';
+                                           }   
                                         })
                                         ->rawColumns(['action', 'status'])
                                         ->make();        

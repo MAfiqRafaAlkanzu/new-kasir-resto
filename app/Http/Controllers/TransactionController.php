@@ -118,7 +118,7 @@ class TransactionController extends Controller
     public function payment(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'tunai' => 'required',    
+            'tunai' => 'required|numeric',    
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson());
@@ -128,8 +128,7 @@ class TransactionController extends Controller
         $kembali = $request->tunai - $total_akhir;
 
         if ($request->tunai < $total_akhir) {
-            return response()->json(['success' => false, 'message' => 'Tunai kurang']);
-            exit;
+            return redirect()->back()->with('error', 'Tunai kurang')->withInput();
         }
 
         $update_bayar = Transaction::where('id', $id)->update([

@@ -18,6 +18,11 @@
                 {{Session::get('success')}}
             </div>
             @endif
+            @if(Session::has('error'))
+            <div class="alert alert-danger text-center">
+                {{Session::get('error')}}
+            </div>
+            @endif
             <div class="ibox-body">
                 <form action="{{ route('transaction.payment', ['id' => session('id')]) }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
                     @csrf

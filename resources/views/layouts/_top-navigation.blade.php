@@ -15,7 +15,7 @@
                 <div class="d-flex justify-content-between mt-2">
                     <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <a class="d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Logout<i class="ti-shift-right ml-2 font-20"></i></a>
+                    <a class="d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">Logout<i class="ti-shift-right ml-2 font-15"></i></a>
                     </form>
                 </div>
             </div>
