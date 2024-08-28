@@ -44,12 +44,17 @@ class TransactionController extends Controller
                                             return $data->seat->seat_number;
                                         })
                                         ->editColumn('status', function($data){
-                                            return $data->status;
+                                            if ($data->status == 'unpayed') {
+                                                return '<span class="badge badge-danger badge-pill"> Unpaid </span>';
+                                            }
+                                            else{
+                                                return '<span class="badge badge-success badge-pill"> Paid </span>';
+                                            };
                                         })
                                         ->editColumn('action', function($data){
                                             return '<div class="input-group d-flex w-25"><div class="input-group-btn d-flex justify-items-center align-items-center"><a class="btn btn-outline-primary btn-sm" href="'.route('transaction.detailpage', ['id' => $data->id]).'"><i class="ti-eye"></i> Detail</a></div></div>';
                                         })
-                                        ->rawColumns(['action'])
+                                        ->rawColumns(['action', 'status'])
                                         ->make();        
         }
     }
@@ -117,14 +122,13 @@ class TransactionController extends Controller
 
     public function payment(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'tunai' => 'required|numeric',    
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson());
-        }
         $total = DB::select("SELECT transaction_id, SUM(subtotal) as 'total' from details WHERE transaction_id = $id GROUP BY transaction_id");
         $total_akhir = intval($total[0]->total);
+
+        $validator = Validator::make($request->all(), $messages = [
+            'tunai' => 'required_with:total|numeric|gte:total',
+        ]);
+    
         $kembali = $request->tunai - $total_akhir;
 
         if ($request->tunai < $total_akhir) {

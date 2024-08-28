@@ -69,8 +69,8 @@
                 <label class="mb-0 mr-2">Status:</label>
                 <select class="selectpicker show-tick form-control" id="type-filter" title="Please select" data-style="btn-solid" data-width="150px">
                     <option value="">All</option>
-                    <option value="payed">Payed</option>
-                    <option value="unpayed">Not Payed</option>
+                    <option value="payed">Paid</option>
+                    <option value="unpayed">Unpaid</option>
                 </select>
             </div>
             <div class="input-group">
@@ -282,7 +282,14 @@
                 }
             });
             $('#type-filter').on('change', function() {
-                table.column(4).search($(this).val()).draw();
+                let filterValue = $(this).val();
+            
+                if ($(this).val() === ""){
+                    table.column(4).search($(this).val()).draw(); 
+                } else {
+                    // Apply exact match filter to the appropriate column (e.g., column index 4 for status)
+                    table.column(4).search('^' + filterValue + '$', true, false).draw();
+                }
             });
         });
 

@@ -70,9 +70,6 @@
                         <th>Menu</th>
                         <th>Qty</th>
                         <th>Subtotal</th>
-                        {{-- <th>Menu</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th> --}}
                         <th>Total : {{ $total }}</th>
                         <th hidden>
                             <input type="hidden" name="token" id="" value="{{ csrf_token() }}">
